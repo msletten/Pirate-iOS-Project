@@ -25,6 +25,7 @@
     MSTileFactory *tileFactory = [[MSTileFactory alloc] init];
     self.currentTile = [tileFactory tiles];
     self.characterStats = [tileFactory charachter];
+    self.boss = [tileFactory theTricero];
     self.currentPoint = CGPointMake(0, 0);
     
 //    
@@ -32,7 +33,6 @@
 //    tileOne.actionButtonName = @"";
 //    tileOne.backgroundImage = [UIImage imageNamed:@"PirateFriendlyDock.jpg"];
 //    tileOne.story = @"What's Up Pirates?";
-//
 //    self.backgroundImage.image = tileOne.backgroundImage;
 //    self.storyText.text = tileOne.story;
     
@@ -49,10 +49,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - IBAction
+
 - (IBAction)actionButtonPressed:(UIButton *)sender
 {
     MSTile *tile = [[self.currentTile objectAtIndex:self.currentPoint.x] objectAtIndex:self.currentPoint.y];
+    if (tile.healthEffect == -12)
+    {
+        self.boss.bossHealth = self.boss.bossHealth - self.characterStats.damage;
+    }
     [self updateCharacterStatsForArmor:tile.armor withWeapon:tile.weapon withHealthEffect:tile.healthEffect];
+    
+    if (self.characterStats.health <= 0)
+    {
+        UIAlertView *deathAlertView = [[UIAlertView alloc] initWithTitle:@"Death Message" message:@"The Tricero Killed You. Restart!" delegate:nil cancelButtonTitle:@"Go Again" otherButtonTitles:nil];
+        [deathAlertView show];
+    }
+    else if (self.boss.bossHealth <= 0)
+    {
+        UIAlertView *winAlertView = [[UIAlertView alloc] initWithTitle:@"Hero" message:@"You have slayed the Tricero!" delegate:nil cancelButtonTitle:@"Celebrate" otherButtonTitles:nil];
+        [winAlertView show];
+    }
     [self updateTile];
 }
 
@@ -84,6 +101,14 @@
     [self updateTile];
 }
 
+- (IBAction)resetButtonPressed:(UIButton *)sender
+{
+    self.characterStats = nil;
+    self.boss = nil;
+    [self viewDidLoad];
+}
+
+#pragma mark - Helper Methods
 
 - (void)updateButtons
 {

@@ -10,4 +10,8 @@
 
 @interface MSBoss : NSObject
 
+@property (nonatomic) int bossHealth;
+
+
+
 @end

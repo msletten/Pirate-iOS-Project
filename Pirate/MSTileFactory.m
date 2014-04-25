@@ -160,4 +160,11 @@
     return character;
 }
 
+-(MSBoss *)theTricero;
+{
+    MSBoss *theTricero = [[MSBoss alloc] init];
+    theTricero.bossHealth = 65;
+    return theTricero;
+}
+
 @end

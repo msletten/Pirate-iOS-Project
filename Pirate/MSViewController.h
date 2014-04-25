@@ -10,6 +10,7 @@
 #import "MSTile.h"
 #import "MSTileFactory.h"
 #import "MSCharacter.h"
+#import "MSBoss.h"
 
 @interface MSViewController : UIViewController
 
@@ -18,6 +19,7 @@
 @property (nonatomic) CGPoint currentPoint;
 @property (strong, nonatomic) NSArray *currentTile;
 @property (strong, nonatomic) MSCharacter *characterStats;
+@property (strong, nonatomic) MSBoss *boss;
 
 
 //IBOutlets
@@ -47,6 +49,7 @@
 
 - (IBAction)westButtonPressed:(UIButton *)sender;
 
+- (IBAction)resetButtonPressed:(UIButton *)sender;
 
 
 @end
